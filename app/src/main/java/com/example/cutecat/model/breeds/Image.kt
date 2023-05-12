@@ -1,6 +1,6 @@
-package com.example.cutecat.model
+package com.example.cutecat.model.breeds
 
-data class CatItem(
+data class Image(
     val height: Int,
     val id: String,
     val url: String,

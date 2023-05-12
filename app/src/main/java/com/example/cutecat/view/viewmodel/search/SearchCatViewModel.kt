@@ -1,0 +1,59 @@
+package com.example.cutecat.view.viewmodel.search
+
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.cutecat.Utils.NetworkService
+import com.example.cutecat.domain.repository.CatListRepository
+import com.example.cutecat.model.breeds.Breed
+import com.example.cutecat.model.cat.Cat
+import com.example.cutecat.model.categories.Categories
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+class SearchCatViewModel(private val catListRepository: CatListRepository,
+                         private val networkService: NetworkService)
+    : ViewModel(){
+
+
+    val resultCat = MutableLiveData<Cat>()
+    val resultBreeds = MutableLiveData<Breed>()
+    val resultCategories = MutableLiveData<Categories>()
+
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+            //getCats("")
+            getBreeds()
+        }
+    }
+
+    suspend fun getCategories(){
+        val result = catListRepository.getCategories()
+        resultCategories.postValue(result.body())
+    }
+
+    suspend fun getBreeds(){
+        val result = catListRepository.getBreeds()
+        resultBreeds.postValue(result.body())
+    }
+
+    fun getDataCats(breed: String){
+        if (networkService.isNetworkAvailable()){
+            viewModelScope.launch(Dispatchers.IO) {
+                getCats(breed)
+            }
+        } else {
+            Log.d("MyLog", "NETWORK ERROR")
+        }
+
+    }
+
+
+    suspend fun getCats(breed: String){
+        val result = catListRepository.getCatList(breed)
+        resultCat.postValue(result.body())
+
+    }
+
+}

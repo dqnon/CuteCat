@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">CuteCat</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="breedCats">
+        <item> </item>
+        <item>Abyssinian</item>
+        <item>Aegean</item>
+        <item>American Bobtail</item>
+        <item>American Curl</item>
+        <item>American Shorthair</item>
+        <item>American Wirehair</item>
+        <item>Australian Mist</item>
+        <item>Balinese</item>
+        <item>Bambino</item>
+        <item>beng</item>
+        <item>Birman</item>
+        <item>British Longhair</item>
+        <item>British Shorthair</item>
+        <item>Burmese</item>
+        <item>California Spangled</item>
+        <item>Chantilly-Tiffany</item>
+        <item>Chartreux</item>
+        <item>Chausie</item>
+        <item>Cheetoh</item>
+
+    </string-array>
+
 </resources>

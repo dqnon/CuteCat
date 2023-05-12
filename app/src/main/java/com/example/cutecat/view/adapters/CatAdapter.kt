@@ -8,15 +8,18 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cutecat.R
 import com.example.cutecat.databinding.CatsListItemBinding
-import com.example.cutecat.model.CatItem
+import com.example.cutecat.model.cat.CatItem
 import com.squareup.picasso.Picasso
 
-class CatAdapter(): ListAdapter<CatItem, CatAdapter.CatItemViewHolder>(Comparator()) {
+class CatAdapter(val listener: Listener): ListAdapter<CatItem, CatAdapter.CatItemViewHolder>(Comparator()) {
     class CatItemViewHolder(view: View): RecyclerView.ViewHolder(view) {
         private val binding = CatsListItemBinding.bind(view)
 
-        fun bind(cat: CatItem) = with(binding){
+        fun bind(cat: CatItem, listener: Listener) = with(binding){
             Picasso.get().load(cat.url).into(imCat)
+            imCat.setOnClickListener {
+                listener.onClick(cat)
+            }
         }
     }
 
@@ -37,6 +40,10 @@ class CatAdapter(): ListAdapter<CatItem, CatAdapter.CatItemViewHolder>(Comparato
     }
 
     override fun onBindViewHolder(holder: CatItemViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), listener)
+    }
+
+    interface Listener{
+        fun onClick(cat: CatItem)
     }
 }
