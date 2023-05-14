@@ -60,9 +60,9 @@ class SearchCatListFragment : Fragment(), CatAdapter.Listener {
         searchCatViewModel.resultBreeds.observe(viewLifecycleOwner, Observer {
             val spinnerArray: MutableList<String> = ArrayList()
             spinnerArray.add("")
-
+            Log.d("BreedLog", it[0].name)
             it.forEach { breed ->
-                Log.d("BreedLog", breed.id)
+                //Log.d("BreedLog", breed.id)
                 spinnerArray.add(breed.id)
             }
 
@@ -98,7 +98,7 @@ class SearchCatListFragment : Fragment(), CatAdapter.Listener {
     override fun onClick(cat: CatItem) {
         Toast.makeText(requireContext(), "${cat.id}", Toast.LENGTH_SHORT).show()
         val intent = Intent(requireContext(), FullImageActivity::class.java)
-        intent.putExtra("image_url", cat.url)
+        intent.putExtra("image_url", cat)
         requireContext().startActivity(intent)
     }
 
