@@ -28,11 +28,16 @@ class SwipeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        swipeCatViewModel = ViewModelProvider(this, SwipeViewModelFactory())
+        swipeCatViewModel = ViewModelProvider(this, SwipeViewModelFactory(requireContext()))
             .get(SwipeViewModel::class.java)
 
-        swipeCatViewModel.catPhoto.observe(viewLifecycleOwner, Observer {
-            Picasso.get().load(it[0].url).into(binding.imageView)
+        swipeCatViewModel.catPhoto.observe(viewLifecycleOwner, Observer { item->
+            Picasso.get().load(item[0].url).into(binding.imageView)
+
+            binding.btFavouriteSwipe.setOnClickListener {
+                item[0].isFavourite = true
+                swipeCatViewModel.addCatFavourite(item[0]){}
+            }
         })
 
         binding.btNext.setOnClickListener {

@@ -10,11 +10,11 @@ import com.example.cutecat.model.cat.CatItem
 interface Dao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addFavourite(item: CatRoomItem)
+    suspend fun addFavourite(item: CatItem)
 
     @Delete
-    suspend fun deleteFavourite(item: CatRoomItem)
+    suspend fun deleteFavourite(item: CatItem)
 
     @Query("SELECT * FROM cats_fav")
-    fun getAllItem(): MutableList<CatRoomItem>
+    fun getAllItem(): MutableList<CatItem>
 }

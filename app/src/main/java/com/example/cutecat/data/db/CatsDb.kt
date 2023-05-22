@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.cutecat.model.cat.CatItem
 
-@Database(entities = [CatRoomItem::class], version = 1)
+@Database(entities = [CatItem::class], version = 1)
 abstract class CatsDb: RoomDatabase() {
     abstract fun getDao(): Dao
 

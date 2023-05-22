@@ -96,8 +96,9 @@ class SearchCatListFragment : Fragment(), CatAdapter.Listener {
     }
 
     override fun onClick(cat: CatItem) {
-        Toast.makeText(requireContext(), "${cat.id}", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(requireContext(), "${cat.id}", Toast.LENGTH_SHORT).show()
         val intent = Intent(requireContext(), FullImageActivity::class.java)
+
         intent.putExtra("image_url", cat)
         requireContext().startActivity(intent)
     }

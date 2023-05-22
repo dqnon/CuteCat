@@ -1,25 +1,21 @@
-package com.example.cutecat.view.viewmodel.swipe
+package com.example.cutecat.view.viewmodel.favourite
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.cutecat.data.db.CatsDb
-import com.example.cutecat.data.repository.CatListRepositoryImpl
 import com.example.cutecat.data.repository.RoomFavouriteRepositoryImpl
-import com.example.cutecat.view.viewmodel.search.SearchCatViewModel
 
-class SwipeViewModelFactory(context: Context): ViewModelProvider.Factory {
+class FavouriteViewModelFactory(context: Context): ViewModelProvider.Factory {
 
-    private val catListRepository = CatListRepositoryImpl()
-
-    //database
     private val database = CatsDb.getDb(context).getDao()
+
     private val roomFavouriteRepository = RoomFavouriteRepositoryImpl(database)
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return SwipeViewModel(
-            catListRepository = catListRepository,
+        return FavouriteViewModel(
             roomFavouriteRepository = roomFavouriteRepository
         ) as T
     }
+
 }
