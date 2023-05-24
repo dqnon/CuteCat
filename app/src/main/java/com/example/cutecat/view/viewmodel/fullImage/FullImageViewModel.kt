@@ -39,7 +39,9 @@ private val downloadImages: DownloadImages): ViewModel() {
 
     fun downloadImage(catItem: CatItem){
         viewModelScope.launch(Dispatchers.IO ) {
-            downloadImages.downloadImage2(catItem)
+            val bitmapImage = downloadImages.getBitmapFromUrl(catItem.url)
+            bitmapImage?.let { downloadImages.saveImageToGallery(it) }
+
         }
     }
 }
