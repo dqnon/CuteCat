@@ -38,6 +38,10 @@ class SwipeFragment : Fragment() {
                 item[0].isFavourite = true
                 swipeCatViewModel.addCatFavourite(item[0]){}
             }
+
+            binding.btDownloadSwipe.setOnClickListener {
+                swipeCatViewModel.downloadImage(item[0])
+            }
         })
 
         binding.btNext.setOnClickListener {
