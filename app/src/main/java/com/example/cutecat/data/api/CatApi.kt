@@ -16,7 +16,7 @@ interface CatApi {
 
 
     @GET("/v1/images/search?limit=10&api_key=$API_KEY")
-    suspend fun getCatsList(@Query("breed_ids") breed: String): Response<Cat>
+    suspend fun getCatsList(@Query("breed_ids") breed: String, @Query("category_ids") categories: String): Response<Cat>
 
     @GET("/v1/images/search")
     suspend fun getCat(): Response<List<CatItem>>

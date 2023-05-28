@@ -15,8 +15,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.cutecat.databinding.FragmentSearchCatListBinding
 import com.example.cutecat.model.breeds.BreedItem
 import com.example.cutecat.model.cat.CatItem
+import com.example.cutecat.model.categories.CategoriesItem
 import com.example.cutecat.view.adapters.CatAdapter
 import com.example.cutecat.view.adapters.BreedAdapter
+import com.example.cutecat.view.adapters.CategoriesSpinnerAdapter
 import com.example.cutecat.view.viewmodel.search.SearchCatViewModel
 import com.example.cutecat.view.viewmodel.search.SearchCatViewModelFactory
 
@@ -26,7 +28,7 @@ class SearchCatListFragment : Fragment(), CatAdapter.Listener {
     private lateinit var binding: FragmentSearchCatListBinding
     lateinit var catAdapter: CatAdapter
     lateinit var searchCatViewModel: SearchCatViewModel
-
+    val spinnerOptionList: MutableList<String> = mutableListOf("", "")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,15 +54,42 @@ class SearchCatListFragment : Fragment(), CatAdapter.Listener {
 
         })
 
-        searchCatViewModel.resultBreeds.observe(viewLifecycleOwner, Observer {
-            val spinnerArray: MutableList<BreedItem> = ArrayList()
-            spinnerArray.add(BreedItem("", ""))
-            Log.d("BreedLog", it[0].name)
+        searchCatViewModel.resultCategories.observe(viewLifecycleOwner, Observer {
+            val spinnerCategoriesArray: MutableList<CategoriesItem> = ArrayList()
+            spinnerCategoriesArray.add(CategoriesItem(0, ""))
             it.forEach { breed ->
-                spinnerArray.add(breed)
+                spinnerCategoriesArray.add(breed)
             }
 
-            val adapterBreed = BreedAdapter(requireContext(), spinnerArray)
+            val adapterCategories = CategoriesSpinnerAdapter(requireContext(), spinnerCategoriesArray)
+            binding.spinnerCategory.adapter = adapterCategories
+        })
+
+        binding.spinnerCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val item = parent.getItemAtPosition(position) as CategoriesItem
+                //val categoriesId = item.id
+                spinnerOptionList[1] = item.id.toString()
+                searchCatViewModel.getDataCats(spinnerOptionList[0], spinnerOptionList[1])
+
+                //refresh button
+                binding.floatingActionButton.setOnClickListener {
+                    searchCatViewModel.getDataCats(spinnerOptionList[0], spinnerOptionList[1])
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+
+        searchCatViewModel.resultBreeds.observe(viewLifecycleOwner, Observer {
+            val spinnerBreedArray: MutableList<BreedItem> = ArrayList()
+            spinnerBreedArray.add(BreedItem("", ""))
+            Log.d("BreedLog", it[0].name)
+            it.forEach { breed ->
+                spinnerBreedArray.add(breed)
+            }
+
+            val adapterBreed = BreedAdapter(requireContext(), spinnerBreedArray)
             binding.spinnerBreed.adapter = adapterBreed
 
         })
@@ -68,12 +97,13 @@ class SearchCatListFragment : Fragment(), CatAdapter.Listener {
         binding.spinnerBreed.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val item = parent.getItemAtPosition(position) as BreedItem
-                val breedId = item.id
-                searchCatViewModel.getDataCats(breedId)
+                spinnerOptionList[0] = item.id
+                searchCatViewModel.getDataCats(spinnerOptionList[0], spinnerOptionList[1])
+                Log.d("SpinnerLog", "$spinnerOptionList")
 
                 //refresh button
                 binding.floatingActionButton.setOnClickListener {
-                    searchCatViewModel.getDataCats(breedId)
+                    searchCatViewModel.getDataCats(spinnerOptionList[0], spinnerOptionList[1])
                 }
             }
 

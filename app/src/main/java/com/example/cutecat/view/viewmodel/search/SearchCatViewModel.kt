@@ -23,8 +23,8 @@ class SearchCatViewModel(private val catListRepository: CatListRepository,
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            //getCats("")
             getBreeds()
+            getCategories()
         }
     }
 
@@ -38,10 +38,10 @@ class SearchCatViewModel(private val catListRepository: CatListRepository,
         resultBreeds.postValue(result.body())
     }
 
-    fun getDataCats(breed: String){
+    fun getDataCats(breed: String, categories: String){
         if (networkService.isNetworkAvailable()){
             viewModelScope.launch(Dispatchers.IO) {
-                getCats(breed)
+                getCats(breed, categories)
             }
         } else {
             Log.d("MyLog", "NETWORK ERROR")
@@ -50,8 +50,8 @@ class SearchCatViewModel(private val catListRepository: CatListRepository,
     }
 
 
-    suspend fun getCats(breed: String){
-        val result = catListRepository.getCatList(breed)
+    suspend fun getCats(breed: String, categories: String){
+        val result = catListRepository.getCatList(breed, categories)
         resultCat.postValue(result.body())
 
     }

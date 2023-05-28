@@ -15,8 +15,8 @@ class CatListRepositoryImpl: CatListRepository {
 
     private val catApi = retrofit.create(CatApi::class.java)
 
-    override suspend fun getCatList(breed: String): Response<Cat> {
-        val catResult = catApi.getCatsList(breed)
+    override suspend fun getCatList(breed: String, categories: String): Response<Cat> {
+        val catResult = catApi.getCatsList(breed, categories)
         return catResult
     }
 

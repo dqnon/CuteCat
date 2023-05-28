@@ -8,7 +8,7 @@ import retrofit2.Response
 
 interface CatListRepository {
 
-    suspend fun getCatList(breed: String): Response<Cat>
+    suspend fun getCatList(breed: String, categories: String): Response<Cat>
 
     suspend fun getOneCat(): Response<List<CatItem>>
 
