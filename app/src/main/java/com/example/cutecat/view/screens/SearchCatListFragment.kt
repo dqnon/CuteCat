@@ -56,7 +56,7 @@ class SearchCatListFragment : Fragment(), CatAdapter.Listener {
 
         searchCatViewModel.resultCategories.observe(viewLifecycleOwner, Observer {
             val spinnerCategoriesArray: MutableList<CategoriesItem> = ArrayList()
-            spinnerCategoriesArray.add(CategoriesItem(0, ""))
+            spinnerCategoriesArray.add(CategoriesItem("", ""))
             it.forEach { breed ->
                 spinnerCategoriesArray.add(breed)
             }
