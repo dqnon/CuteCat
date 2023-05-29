@@ -1,8 +1,10 @@
 package com.example.cutecat.view.viewmodel.swipe
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cutecat.Utils.NetworkService
 import com.example.cutecat.domain.DownloadImages
 import com.example.cutecat.domain.repository.CatListRepository
 import com.example.cutecat.domain.repository.RoomFavouriteRepository
@@ -13,7 +15,8 @@ import kotlinx.coroutines.launch
 class SwipeViewModel(
     private val catListRepository: CatListRepository,
     private val roomFavouriteRepository: RoomFavouriteRepository,
-    private val downloadImages: DownloadImages
+    private val downloadImages: DownloadImages,
+    private val networkService: NetworkService
 ): ViewModel() {
 
     val catPhoto = MutableLiveData<List<CatItem>>()
@@ -28,8 +31,12 @@ class SwipeViewModel(
         }
 
     fun getCatCheckNetwork(){
-        viewModelScope.launch(Dispatchers.IO) {
-            getRandomCat()
+        if (networkService.isNetworkAvailable()){
+            viewModelScope.launch(Dispatchers.IO) {
+                getRandomCat()
+            }
+        } else {
+            networkService.toastError()
         }
     }
 

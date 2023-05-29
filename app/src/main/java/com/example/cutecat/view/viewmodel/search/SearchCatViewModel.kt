@@ -22,10 +22,16 @@ class SearchCatViewModel(private val catListRepository: CatListRepository,
     val resultCategories = MutableLiveData<Categories>()
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            getBreeds()
-            getCategories()
+
+        if (networkService.isNetworkAvailable()){
+            viewModelScope.launch(Dispatchers.IO) {
+                getBreeds()
+                getCategories()
+            }
+        } else {
+            networkService.toastError()
         }
+
     }
 
     suspend fun getCategories(){
@@ -44,7 +50,7 @@ class SearchCatViewModel(private val catListRepository: CatListRepository,
                 getCats(breed, categories)
             }
         } else {
-            Log.d("MyLog", "NETWORK ERROR")
+            networkService.toastError()
         }
 
     }

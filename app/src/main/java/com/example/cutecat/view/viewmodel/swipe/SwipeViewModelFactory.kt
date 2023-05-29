@@ -3,6 +3,7 @@ package com.example.cutecat.view.viewmodel.swipe
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.cutecat.Utils.NetworkService
 import com.example.cutecat.data.db.CatsDb
 import com.example.cutecat.data.repository.CatListRepositoryImpl
 import com.example.cutecat.data.repository.RoomFavouriteRepositoryImpl
@@ -20,11 +21,14 @@ class SwipeViewModelFactory(context: Context): ViewModelProvider.Factory {
     //download
     private val downloadImages = DownloadImages(context)
 
+    private val networkService = NetworkService(context)
+
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return SwipeViewModel(
             catListRepository = catListRepository,
             roomFavouriteRepository = roomFavouriteRepository,
-            downloadImages = downloadImages
+            downloadImages = downloadImages,
+            networkService = networkService
         ) as T
     }
 }

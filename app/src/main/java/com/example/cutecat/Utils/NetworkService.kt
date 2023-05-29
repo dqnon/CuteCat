@@ -3,6 +3,7 @@ package com.example.cutecat.Utils
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.widget.Toast
 
 
 class NetworkService(private val context: Context) {
@@ -15,5 +16,10 @@ class NetworkService(private val context: Context) {
                         || hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
             } ?: false
         }
+
+    fun toastError(){
+            Toast.makeText(context, "NETWORK ERROR", Toast.LENGTH_LONG).show()
+    }
+
 
 }
