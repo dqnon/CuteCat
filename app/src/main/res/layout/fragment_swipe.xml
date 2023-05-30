@@ -21,21 +21,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="next" />
+            android:text="@string/next" />
 
         <Button
             android:id="@+id/btFavouriteSwipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="favoruite" />
+            android:text="@string/favourite" />
 
         <Button
             android:id="@+id/btDownloadSwipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="download" />
+            android:text="@string/download" />
     </LinearLayout>
 
     <ImageView

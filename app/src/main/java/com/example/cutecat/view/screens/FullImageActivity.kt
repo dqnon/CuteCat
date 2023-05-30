@@ -64,10 +64,12 @@ class FullImageActivity : AppCompatActivity() {
                 fullImageViewModel.addCatFavourite(catItem) {}
                 fullImageViewModel.getAllCats()
             }
+            Toast.makeText(this, "Image added to favorites", Toast.LENGTH_SHORT).show()
         }
 
         binding.btRemove.setOnClickListener {
             fullImageViewModel.removeCatFavourite(catItem){}
+            Toast.makeText(this, "Image removed from favourites", Toast.LENGTH_SHORT).show()
             finish()
         }
 
