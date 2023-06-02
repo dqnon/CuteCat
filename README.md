@@ -14,7 +14,7 @@ Here you can look at cats, nothing special
 <p>The app is using
   <a href="https://thecatapi.com/">CatAPI</a>.
 </p>
-<img src="https://imgur.com/a/zeaeqAF">
+<img src="https://i.imgur.com/gwzXxGs.png">
 
 
 
