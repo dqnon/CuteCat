@@ -7,6 +7,7 @@ Here you can look at cats, nothing special
 * Retrofit
 * Room
 * Androix: ViewPager2, RecyclerView, ViewModel, LiveData
+* Dependency injection(Hilt)
 
 
 # Description
