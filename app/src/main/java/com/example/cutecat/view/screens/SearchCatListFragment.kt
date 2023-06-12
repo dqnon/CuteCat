@@ -10,8 +10,8 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.cutecat.databinding.FragmentSearchCatListBinding
 import com.example.cutecat.model.breeds.BreedItem
@@ -21,14 +21,14 @@ import com.example.cutecat.view.adapters.CatAdapter
 import com.example.cutecat.view.adapters.BreedAdapter
 import com.example.cutecat.view.adapters.CategoriesSpinnerAdapter
 import com.example.cutecat.view.viewmodel.search.SearchCatViewModel
-import com.example.cutecat.view.viewmodel.search.SearchCatViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class SearchCatListFragment : Fragment(), CatAdapter.Listener {
 
     private lateinit var binding: FragmentSearchCatListBinding
     lateinit var catAdapter: CatAdapter
-    lateinit var searchCatViewModel: SearchCatViewModel
+    private val searchCatViewModel: SearchCatViewModel by viewModels()
     val spinnerOptionList: MutableList<String> = mutableListOf("", "")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,8 +41,8 @@ class SearchCatListFragment : Fragment(), CatAdapter.Listener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        searchCatViewModel = ViewModelProvider(this, SearchCatViewModelFactory(requireContext()))
-            .get(SearchCatViewModel::class.java)
+//        searchCatViewModel = ViewModelProvider(this, SearchCatViewModelFactory(requireContext()))
+//            .get(SearchCatViewModel::class.java)
 
         searchCatViewModel.resultCat.observe(viewLifecycleOwner, Observer {
             Log.d("MyLog", "$it")

@@ -1,6 +1,5 @@
 package com.example.cutecat.view.viewmodel.swipe
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,15 +7,21 @@ import com.example.cutecat.Utils.NetworkService
 import com.example.cutecat.domain.DownloadImages
 import com.example.cutecat.domain.repository.CatListRepository
 import com.example.cutecat.domain.repository.RoomFavouriteRepository
+import com.example.cutecat.domain.usecase.network.GetOneCatUseCase
+import com.example.cutecat.domain.usecase.room.AddCatUseCase
+import com.example.cutecat.domain.usecase.room.DeleteCatUseCase
 import com.example.cutecat.model.cat.CatItem
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SwipeViewModel(
-    private val catListRepository: CatListRepository,
-    private val roomFavouriteRepository: RoomFavouriteRepository,
+@HiltViewModel
+class SwipeViewModel @Inject constructor(
     private val downloadImages: DownloadImages,
-    private val networkService: NetworkService
+    private val networkService: NetworkService,
+    private val addCatUseCase: AddCatUseCase,
+    private val getOneCatUseCase: GetOneCatUseCase
 ): ViewModel() {
 
     val catPhoto = MutableLiveData<List<CatItem>>()
@@ -27,7 +32,7 @@ class SwipeViewModel(
 
     fun addCatFavourite(cat: CatItem, onSuccess:() -> Unit) =
         viewModelScope.launch(Dispatchers.IO ) {
-            roomFavouriteRepository.addCat(cat) {}
+            addCatUseCase.addCat(cat){}
         }
 
     fun getCatCheckNetwork(){
@@ -41,7 +46,7 @@ class SwipeViewModel(
     }
 
     suspend fun getRandomCat(){
-        val result = catListRepository.getOneCat()
+        val result = getOneCatUseCase.getOneCat()
         catPhoto.postValue(result.body())
     }
 

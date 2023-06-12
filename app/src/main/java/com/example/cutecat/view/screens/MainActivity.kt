@@ -6,7 +6,9 @@ import android.os.Bundle
 import com.example.cutecat.view.adapters.ViewPagerAdapter
 import com.example.cutecat.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding

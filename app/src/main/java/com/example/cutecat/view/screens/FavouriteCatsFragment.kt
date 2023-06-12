@@ -6,28 +6,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.cutecat.R
 import com.example.cutecat.databinding.FragmentFavouriteCatsBinding
 import com.example.cutecat.model.cat.CatItem
 import com.example.cutecat.view.adapters.CatAdapter
 import com.example.cutecat.view.viewmodel.favourite.FavouriteViewModel
-import com.example.cutecat.view.viewmodel.favourite.FavouriteViewModelFactory
-import com.example.cutecat.view.viewmodel.search.SearchCatViewModel
-import com.example.cutecat.view.viewmodel.search.SearchCatViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class FavouriteCatsFragment : Fragment(), CatAdapter.Listener {
 
     private lateinit var binding: FragmentFavouriteCatsBinding
-    lateinit var favouriteCatViewModel: FavouriteViewModel
+    private val favouriteCatViewModel: FavouriteViewModel by viewModels()
     lateinit var catAdapter: CatAdapter
 
     override fun onCreateView(
@@ -43,8 +38,8 @@ class FavouriteCatsFragment : Fragment(), CatAdapter.Listener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        favouriteCatViewModel = ViewModelProvider(this, FavouriteViewModelFactory(requireContext()))
-            .get(FavouriteViewModel::class.java)
+//        favouriteCatViewModel = ViewModelProvider(this, FavouriteViewModelFactory(requireContext()))
+//            .get(FavouriteViewModel::class.java)
 
         favouriteCatViewModel.allItemsCat.observe(viewLifecycleOwner, Observer {
             Log.d("FavLog", "$it")

@@ -5,17 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.cutecat.databinding.FragmentSwipeBinding
 import com.example.cutecat.view.viewmodel.swipe.SwipeViewModel
-import com.example.cutecat.view.viewmodel.swipe.SwipeViewModelFactory
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SwipeFragment : Fragment() {
 
     private lateinit var binding: FragmentSwipeBinding
-    lateinit var swipeCatViewModel: SwipeViewModel
+    private val swipeCatViewModel: SwipeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,8 +29,8 @@ class SwipeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        swipeCatViewModel = ViewModelProvider(this, SwipeViewModelFactory(requireContext()))
-            .get(SwipeViewModel::class.java)
+//        swipeCatViewModel = ViewModelProvider(this, SwipeViewModelFactory(requireContext()))
+//            .get(SwipeViewModel::class.java)
 
         swipeCatViewModel.catPhoto.observe(viewLifecycleOwner, Observer { item->
             Picasso.get().load(item[0].url).into(binding.imageView)
