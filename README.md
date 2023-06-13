@@ -6,7 +6,7 @@ Here you can look at cats, nothing special
 * Kotlin coroutines
 * Retrofit
 * Room
-* Androidx: ViewPager2, RecyclerView, ViewModel, LiveData
+* Androidx: TabLayout, ViewPager2, RecyclerView, ViewModel, LiveData
 * Dependency injection(Hilt)
 
 
