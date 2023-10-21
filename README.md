@@ -2,7 +2,7 @@
 Here you can look at cats, nothing special
 
 # TechStack
-* Clean architecture, MVVM
+* MVVM
 * Kotlin coroutines
 * Retrofit
 * Room
